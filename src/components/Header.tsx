@@ -24,7 +24,7 @@ function Header() {
             News
           </Typography>
           <Button color="inherit">home</Button>
-          <Button color="inherit">saved</Button>
+          <Button color="inherit">saved.</Button>
         </Toolbar>
       </AppBar>
     </Box>
