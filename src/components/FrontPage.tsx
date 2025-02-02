@@ -19,20 +19,33 @@ function FrontPage() {
   const [counter, setCounter] = useState(1)
   const [loading, setLoading] = useState<boolean>(false)
   const [joke, setJoke] = useState<IJoke | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (counter === 1) return
     const abortCtrl: AbortController = new AbortController()
+
     const getJokes = async (): Promise<void> => {
-      const response: Response = await fetch(
-        "https://official-joke-api.appspot.com/random_joke",
-        { signal: abortCtrl.signal }
-      )
-      const data: IJoke = await response.json()
-      setJoke(data)
-      setLoading(false)
+      try {
+        setLoading(true)
+        setError(null)
+
+        const response: Response = await fetch(
+          "https://official-joke-api.appspot.com/random_joke",
+          { signal: abortCtrl.signal }
+        )
+        const data: IJoke = await response.json()
+        setJoke(data)
+      } catch (error: unknown) {
+        if (error instanceof Error && error.name !== "AbortError") {
+          setError("Error occured")
+        }
+      } finally {
+        setLoading(false)
+      }
     }
     getJokes()
+    return () => abortCtrl.abort()
   }, [triggerFetch, counter])
 
   const runTrigger = () => {
