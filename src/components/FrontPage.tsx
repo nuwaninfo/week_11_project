@@ -13,8 +13,11 @@ interface IJoke {
   setup: string
   punchline: string
 }
+interface FrontPageProps {
+  saveJoke?: (joke: IJoke) => boolean
+}
 
-function FrontPage() {
+function FrontPage({ saveJoke }: FrontPageProps) {
   const [triggerFetch, setTriggerFetch] = useState(false)
   const [counter, setCounter] = useState(1)
   const [loading, setLoading] = useState<boolean>(false)
@@ -60,11 +63,20 @@ function FrontPage() {
     setCounter((counter) => counter + 1)
   }
 
+  const saveHandler = () => {
+    if (joke && saveJoke) {
+      saveJoke(joke)
+    }
+  }
+
   return (
     <>
       <div>
         <Button variant="contained" onClick={runTrigger}>
           Get Joke
+        </Button>
+        <Button variant="contained" onClick={saveHandler}>
+          Save joke
         </Button>
         {loading && <p>Loading a joke...</p>}
       </div>
