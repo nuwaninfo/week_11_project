@@ -38,7 +38,9 @@ function FrontPage() {
         setJoke(data)
       } catch (error: unknown) {
         if (error instanceof Error && error.name !== "AbortError") {
-          setError("Error occured")
+          setError(error.message)
+
+          setLoading(false)
         }
       } finally {
         setLoading(false)
@@ -46,7 +48,7 @@ function FrontPage() {
     }
     getJokes()
     return () => abortCtrl.abort()
-  }, [triggerFetch, counter])
+  }, [triggerFetch, counter, error])
 
   const runTrigger = () => {
     setLoading(true)
