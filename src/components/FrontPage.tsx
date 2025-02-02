@@ -14,15 +14,6 @@ interface IJoke {
   punchline: string
 }
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-)
-
 function FrontPage() {
   const [triggerFetch, setTriggerFetch] = useState(false)
   const [counter, setCounter] = useState(1)
@@ -40,7 +31,6 @@ function FrontPage() {
       const data: IJoke = await response.json()
       setJoke(data)
       setLoading(false)
-      console.log("ddddd")
     }
     getJokes()
   }, [triggerFetch, counter])
