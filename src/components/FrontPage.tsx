@@ -74,7 +74,7 @@ function FrontPage() {
               {joke?.setup}
             </Typography>
             <Typography variant="h5" component="div">
-              be{bull}nev{bull}o{bull}lent
+              {joke.punchline}
             </Typography>
           </CardContent>
         </Card>
