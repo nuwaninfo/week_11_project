@@ -59,7 +59,7 @@ function FrontPage() {
     <>
       <div>
         <Button variant="contained" onClick={runTrigger}>
-          Get jokes
+          Get Joke
         </Button>
         {loading && <p>Loading a joke...</p>}
       </div>
